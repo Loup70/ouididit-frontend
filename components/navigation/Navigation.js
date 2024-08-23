@@ -8,12 +8,12 @@ import SignUpScreen from "../../screens/SignUpScreen";
 import CreateActivityScreen from "../../screens/CreateActivityScreen";
 import ActivityAdminScreen from "../../screens/ActivityAdminScreen";
 import ProfilPaiementsScreen from "../../screens/ProfilPaiementsScreen";
-import ProfilInfosScreen from "../../screens/ProfilInfos";
+import ProfilInfosScreen from "../../screens/ProfilInfosScreen";
 import ProfilScreen from "../../screens/ProfilScreen";
 import WalletScreen from "../../screens/WalletScreen";
 import CalendarScreen from "../../screens/CalendarScreen";
-import allActivities from "../../screens/AllActivities";
-import Activity from "../../screens/Activity";
+import allActivities from "../../screens/AllActivitiesScreen";
+import Activity from "../../screens/ActivityScreen";
 
 const Stack = createNativeStackNavigator();
 

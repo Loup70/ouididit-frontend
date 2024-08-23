@@ -1,6 +1,5 @@
 {
   "expo": {
-    
     "name": "OUIDIDIT",
     "slug": "OUIDIDIT",
     "version": "1.0.0",
@@ -12,7 +11,6 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    
     "ios": {
       "supportsTablet": true
     },
@@ -27,6 +25,17 @@
     },
     "assetBundlePatterns": [
       "assets/fonts/*"
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "630071bb-7f23-4371-aac2-7272fac9f315"
+      }
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/630071bb-7f23-4371-aac2-7272fac9f315"
+    }
   }
 }

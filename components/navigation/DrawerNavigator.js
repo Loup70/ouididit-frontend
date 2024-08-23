@@ -7,13 +7,10 @@ import { logoutActivities } from "../../reducers/activities";
 import { useNavigation } from '@react-navigation/native';
 import HomeScreen from "../../screens/HomeScreen";
 import CreateActivityScreen from "../../screens/CreateActivityScreen";
-import ActivityAdminScreen from "../../screens/ActivityAdminScreen";
 import CalendarScreen from "../../screens/CalendarScreen";
 import DiscussionsScreen from "../../screens/DiscussionsScreen";
 import ProfilScreen from "../../screens/ProfilScreen";
-import allActivities from "../../screens/AllActivities";
-import Activity from "../../screens/Activity"
-import WalletScreen from "../../screens/WalletScreen";
+import allActivities from "../../screens/AllActivitiesScreen";
 
 const Drawer = createDrawerNavigator();
 
