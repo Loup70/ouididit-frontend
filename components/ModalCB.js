@@ -50,7 +50,7 @@ export default function PaymentModal(props) {
 
           <Input
             style={styles.input}
-            placeholder="Amount of Contibution"
+            label="Amount of Contibution"
             keyboardType="numeric"
             value={amount}
             onChangeText={setAmount}
@@ -61,7 +61,7 @@ export default function PaymentModal(props) {
 
           <Input
             style={styles.input}
-            placeholder="Card Number"
+            label="Card Number"
             keyboardType="numeric"
             value={cardNumber}
             onChangeText={setCardNumber}
@@ -72,7 +72,7 @@ export default function PaymentModal(props) {
           <View style={styles.viewInline}>
             <Input
               style={styles.inlineConponent}
-              placeholder="MM/YY"
+              label="MM/YY"
               keyboardType="numeric"
               value={expiryDate}
               onChangeText={setExpiryDate}
@@ -82,7 +82,7 @@ export default function PaymentModal(props) {
 
             <Input
               style={styles.inlineConponent}
-              placeholder="CVV"
+              label="CVV"
               keyboardType="numeric"
               secureTextEntry={true}
               value={cvv}
@@ -94,7 +94,7 @@ export default function PaymentModal(props) {
 
           <Input
             style={styles.input}
-            placeholder="Cardholder Name"
+            label="Cardholder Name"
             value={cardHolderName}
             onChangeText={setCardHolderName}
             require={true}

@@ -1,36 +1,73 @@
 import { StyleSheet, Text, TextInput, View} from 'react-native';
+import { useState } from 'react';
+import FontAwesome from '@expo/vector-icons/FontAwesome';
 
 export default function Input(props) {
+    const [isFocused, setIsFocused] = useState(false);
+    const [hideText, setHideText]=useState(props.secureTextEntry);
+    const [eyeIcon, setEyeIcon]=useState('eye');
+    const [eyeIconColor, setEyeIconColor]=useState('#263238');
+
+    const handlePasswordIcon = () => {
+        if (eyeIcon === 'eye') {
+            setEyeIcon('eye-slash');
+            setEyeIconColor('#F74231');
+        } else if (eyeIcon === 'eye-slash') {
+            setEyeIcon('eye');
+            setEyeIconColor('#263238');
+        }
+        setHideText(!hideText);
+    };
+
+    const onFocus = ()=>{
+        setIsFocused(true);
+        props.OnFocus;
+    };
+
     return (          
         <View style={[styles.input, props.style]}>
             <View style={styles.inputLabelView}>
-                <Text style={styles.inputLabel}>{props.placeholder} {props.require && (<Text style={styles.require}>*</Text>)}</Text>
+                <Text style={[styles.inputLabel, (isFocused && styles.focused)]}>{props.label}{props.require && (<Text style={styles.require}> *</Text>)}</Text>
             </View>
-            <View style={styles.inputEmail}>
+            <View style={[styles.inputTextView, (isFocused && styles.focused)]}>
                 <TextInput
                     autoCapitalize={props.autoCapitalize}
                     autoCorrect={props.autoCorrect}
                     autoComplete={props.autoComplete}
                     autoFocus={props.autoFocus}
                     editable={props.editable}
+                    id={props.label}
                     inputMode={props.inputMode}
                     keyboardType={props.keyboardType}
                     label={props.label || 'Input'}
                     maxLength={props.maxLength}
                     multiline={props.multiline}
                     numberOfLines={props.numberOfLines}
+                    onBlur={() => setIsFocused(false)}
                     onChangeText={props.onChangeText}
-                    onFocus={props.onFocus}
+                    onFocus={onFocus}
                     onPressIn={props.onPressIn}
                     onPressOut={props.onPressOut}
                     onEndEditing={props.onEndEditing}
                     onSubmitEditing={props.onSubmitEditing || ''}
-                    secureTextEntry={props.secureTextEntry}
+                    placeholder={props.placeholder}
+                    secureTextEntry={hideText}
                     style={[styles.inputStyle, (props.multiline && styles.multiline)]}
                     textContentType='oneTimeCode'
                     value={props.value}
                 />
-                <Text style={styles.uniti}>{props.uniti}</Text>
+                {props.uniti && 
+                    <Text style={styles.uniti}>{props.uniti}</Text>
+                }
+                {props.eye && 
+                    <FontAwesome
+                        style= {styles.iconeye}
+                        name={eyeIcon}
+                        size={24}
+                        color={eyeIconColor}
+                        onPress={() => handlePasswordIcon()}
+                    />
+                }
             </View>
         </View>
     );
@@ -43,7 +80,6 @@ const styles = StyleSheet.create({
     },
     inputLabelView:{
         backgroundColor: 'white',
-        color: 'rgba(38,50,56)',
         fontSize: 12,
         marginLeft: 10,
         paddingHorizontal:3,
@@ -53,7 +89,7 @@ const styles = StyleSheet.create({
     },
     inputLabel:{
         backgroundColor: 'white',
-        color: 'rgba(38,50,56)',
+        color: '#263238',
         fontFamily: 'ClashGrotesk-Regular',
         fontSize: 16,
     },
@@ -62,36 +98,40 @@ const styles = StyleSheet.create({
         fontFamily: 'ClashGrotesk-Regular',
         fontSize: 16,
     },
+    inputTextView: {
+        borderColor: 'rgba(38,50,56,0.16)',
+        borderRadius: 10,
+        borderWidth: 1,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        backgroundColor: 'white',
+    },
     inputStyle:{
         width: '80%',
         fontFamily: 'ClashGrotesk-Regular',
         fontSize: 18,
         height: 40,
-        padding: 5,
-        paddingHorizontal:10,
+        paddingVertical: 5,
+        paddingHorizontal: 10,
+    },
+    focused:{
+        borderColor : '#F74231',
+        color :'#F74231',
     },
     uniti:{
-        backgroundColor: 'white',
-        color: 'rgba(38,50,56)',
+        color: 'rgb(38,50,56)',
         fontFamily: 'ClashGrotesk-Regular',
-        fontSize: 16,
+        fontSize: 20,
         position: "absolute",
         right:'5%',
         zIndex: 1,
     },
-    inputEmail: {
-        borderColor: 'rgba(38,50,56,0.16)',
-        borderRadius: 10,
-        borderWidth:1,
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        backgroundColor: 'white',
-        borderRadius: 10,
-        // paddingHorizontal: 14,
-        backgroundColor: 'white',
+    iconeye: {
+        marginLeft: 10,
+        paddingRight: 10,
     },
     multiline:{
-        height:80
-    }
+        height:80,
+    },
 });

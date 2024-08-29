@@ -25,7 +25,8 @@ export default function Navigation() {
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
-        {/* Ternary expression : Connected ? true -> setup stack navigator with drawer navigator / false -> setup stack navigator Signin and Signup */}
+        {/* Ternary expression : Connected ? true -> setup stack navigator with drawer navigator
+                                            false -> setup stack navigator Signin and Signup */}
         {isAuthenticated ? (
           <Stack.Screen name="Drawer" component={DrawerNavigator} />
         ) : (
@@ -34,10 +35,10 @@ export default function Navigation() {
             <Stack.Screen name="SignUp" component={SignUpScreen} />
           </>
         )}
-        <Stack.Screen name="The Calendar" component={CalendarScreen}/>
         <Stack.Screen name="Activity Admin" component={ActivityAdminScreen} />
         <Stack.Screen name="Create activity" component={CreateActivityScreen}/>
         <Stack.Screen name="AllActivites" component={allActivities}/>
+        <Stack.Screen name="The Calendar" component={CalendarScreen}/>
         <Stack.Screen name="Profile" component={ProfilScreen} />
         <Stack.Screen name="Profile Infos" component={ProfilInfosScreen} />
         <Stack.Screen name="Profile Paiements" component={ProfilPaiementsScreen}/>

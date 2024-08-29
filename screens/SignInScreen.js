@@ -15,7 +15,6 @@ import { BACKEND_IP } from "@env";
 import { login } from "../reducers/users";
 import RedButton from "../components/redButton";
 import Input from "../components/Input";
-import InputPassword from "../components/InputPassword";
 
 export default function SignInScreen({ navigation }) {
   const [email, setEmail] = useState("");
@@ -50,10 +49,10 @@ export default function SignInScreen({ navigation }) {
  <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={styles.container}>
     <Image source={require('../assets/logo.png')} style={styles.logo}/>
     <View style={styles.input}>
-    <Input autoCapitalize='none' inputMode='email' onChangeText={(value) => setEmail(value.toLowerCase())} value={email}  placeholder='E-mail'/>
+    <Input autoCapitalize='none' inputMode='email' onChangeText={(value) => setEmail(value.toLowerCase())} value={email}  label='E-mail' />
     </View>
     <View style={styles.input}>
-    <InputPassword autoCapitalize='none' onChangeText={(value) => setPassword(value)} value={password}  placeholder="Password" secureTextEntry={true}/>
+    <Input autoCapitalize='none' onChangeText={(value) => setPassword(value)} value={password}  label="Password" secureTextEntry={true} eye={true}/>
     </View>
     <Text style={{ fontFamily: 'ClashGrotesk-Regular', fontSize: 18, color: 'black' }}> Choose another account </Text>
    <RedButton buttonText='Sign In'

@@ -299,7 +299,7 @@ if (participantsArr && Array.isArray(participantsArr)) {
           <View style={styles.centeredView}>
             <View style={styles.modalView}>
               <Input
-                placeholder="Email's participant"
+                label="Email's participant"
                 onChangeText={(value) => {
                   setinputParticipant(value.toLowerCase());
                 }}
@@ -363,7 +363,7 @@ if (participantsArr && Array.isArray(participantsArr)) {
                 autoFocus
                 editable={edit}
                 onChangeText={(value) => setActivityName(value)}
-                placeholder="Activity Name"
+                label="Activity Name"
                 require={true}
                 style={styles.input}
                 value={activityName}
@@ -373,7 +373,7 @@ if (participantsArr && Array.isArray(participantsArr)) {
                 editable={edit}
                 keyboardType="numeric"
                 onChangeText={(value) => setMaxPrice(value)}
-                placeholder="Total payement"
+                label="Total payement"
                 require={true}
                 style={styles.input}
                 value={maxPrice}
@@ -384,7 +384,7 @@ if (participantsArr && Array.isArray(participantsArr)) {
               editable={edit}
               multiline
               onChangeText={(value) => setDescription(value)}
-              placeholder="Description"
+              label="Description"
               style={styles.input}
               value={description}
             />
@@ -403,7 +403,7 @@ if (participantsArr && Array.isArray(participantsArr)) {
               }
               onChangeText={(value) => setDate(value)}
               onPressOut={() => setDatePickerVisible(true)}
-              placeholder="Date"
+              label="Date"
               require={true}
               style={styles.input}
               value={date}
@@ -426,7 +426,7 @@ if (participantsArr && Array.isArray(participantsArr)) {
                 }
                 onChangeText={(value) => setStartTime(value)}
                 onPressOut={() => setTimePickerVisible(true)}
-                placeholder="Start time"
+                label="Start time"
                 require={true}
                 style={styles.inputLine}
                 value={startTime}
@@ -435,7 +435,7 @@ if (participantsArr && Array.isArray(participantsArr)) {
                 editable={edit}
                 keyboardType="numeric"
                 onChangeText={(value) => setDuration(value)}
-                placeholder="Duration"
+                label="Duration"
                 style={styles.inputLine}
                 value={duration}
                 uniti="hours"
@@ -444,7 +444,7 @@ if (participantsArr && Array.isArray(participantsArr)) {
             <Input
               editable={edit}
               onChangeText={(value) => setLocation(value)}
-              placeholder="Location"
+              label="Location"
               style={styles.input}
               value={location}
             />

@@ -1,7 +1,6 @@
 import { View, StyleSheet, Text, KeyboardAvoidingView, Platform, TouchableWithoutFeedback, Keyboard } from "react-native";
 import RedButton from '../components/redButton';
 import Input from '../components/Input';
-import InputPassword from '../components/InputPassword';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { useDispatch } from 'react-redux';
 import { useState } from "react";
@@ -13,6 +12,7 @@ export default function SignUpScreen({navigation}) {
   const [email, setEmail]=useState('');
   const [password, setPassword]=useState('');
   const [username, setUsername]=useState('');
+  
 
   const dispatch = useDispatch();
 
@@ -49,10 +49,10 @@ export default function SignUpScreen({navigation}) {
       </View>
       <Text style={styles.title}>Create account</Text>
       <View style={styles.register}>
-        <Input autoCapitalize='none' inputMode='email' onChangeText={(value) => setEmail(value.toLowerCase())} value={email}  placeholder='E-mail'></Input>
-        <Input autoCapitalize='none' onChangeText={(value) => setUsername(value)} value={username}  placeholder='Username'></Input>
-        <InputPassword autoCapitalize='none' onChangeText={(value) => setPassword(value)} value={password}  placeholder="Password" secureTextEntry={true}></InputPassword>
-        <RedButton buttonText='Register' onPress={() => handleSubmitSignUp()}></RedButton>
+        <Input autoCapitalize='none' inputMode='email' onChangeText={(value) => setEmail(value.toLowerCase())} value={email}  label='E-mail'/>
+        <Input autoCapitalize='none' onChangeText={(value) => setUsername(value)} value={username}  label='Username'/>
+        <Input autoCapitalize='none' onChangeText={(value) => setPassword(value)} value={password}  label="Password" secureTextEntry={true}/>
+        <RedButton buttonText='Register' onPress={() => handleSubmitSignUp()}/>
       </View>
     </KeyboardAvoidingView>
     </TouchableWithoutFeedback>

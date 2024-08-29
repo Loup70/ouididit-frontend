@@ -185,7 +185,7 @@ export default function CreateActivityScreen( {navigation} ) {
                     <Input
                         autoFocus={true}
                         onChangeText={(value) => setActivityName(value)}
-                        placeholder = 'Activity Name'
+                        label = 'Activity Name'
                         require={true}
                         style={styles.input}
                         value={activityName}
@@ -195,7 +195,7 @@ export default function CreateActivityScreen( {navigation} ) {
                         <Input
                             keyboardType='numeric'
                             onChangeText={(value) => setPrice(value)}
-                            placeholder = 'Price'
+                            label = 'Price'
                             require={true}
                             style={styles.inputLine}
                             value={price}
@@ -214,7 +214,7 @@ export default function CreateActivityScreen( {navigation} ) {
                         keyboardType={Platform.OS === 'ios' ? 'numbers-and-punctuation' : 'phone-pad'}
                         onChangeText={(value) => setDate(value)}
                         onPressOut ={() => setDatePickerVisible(true)}
-                        placeholder = 'Date'
+                        label = 'Date'
                         require={true}
                         style={styles.input}
                         value={date}
@@ -233,7 +233,7 @@ export default function CreateActivityScreen( {navigation} ) {
                             keyboardType={Platform.OS === 'ios' ? 'numbers-and-punctuation' : 'default'}
                             onChangeText={(value) => setStartTime(value)}
                             onPressOut ={() => setTimePickerVisible(true)}
-                            placeholder = 'Start time'
+                            label = 'Start time'
                             require={true}
                             style={styles.inputLine}
                             value={startTime}
@@ -242,7 +242,7 @@ export default function CreateActivityScreen( {navigation} ) {
                         <Input
                             keyboardType='numeric'
                             onChangeText={(value) => setDuration(value)}
-                            placeholder = 'Duration'
+                            label = 'Duration'
                             style={styles.inputLine}
                             value={duration}
                             uniti="hours"
@@ -251,7 +251,7 @@ export default function CreateActivityScreen( {navigation} ) {
                     </View>
                     <Input
                         onChangeText={(value) => setLocation(value)}
-                        placeholder = 'Location'
+                        label = 'Location'
                         style={styles.input}
                         value={location}
                         maxLength={100}
@@ -259,7 +259,7 @@ export default function CreateActivityScreen( {navigation} ) {
                     <Input
                         multiline
                         onChangeText={(value) => setDescription(value)}
-                        placeholder = 'Description'
+                        label = 'Description'
                         style={styles.input}
                         value={description}
                         maxLength={200}

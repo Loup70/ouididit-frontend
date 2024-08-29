@@ -211,7 +211,7 @@ useEffect(() => {
             value={messageText}
             autoCapitalize='none'
             inputMode='message'
-            placeholder='Message'
+            label='Message'
             maxLength={200}
             />
           <FontAwesome style={styles.sendIcon} onPress={() => handleSendMessage()} name="send-o" size={24} color="black" />
@@ -229,7 +229,7 @@ const styles = StyleSheet.create({
     width: '100%',
     alignItems: 'center',
     backgroundColor: 'white',
-    paddingTop:80,
+    paddingTop:85,
   },
   vue1: {
     flexDirection: "row",
