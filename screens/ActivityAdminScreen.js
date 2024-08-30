@@ -46,7 +46,6 @@ export default function ActivityAdminScreen({ navigation }) {
   const [modalCBVisible, setModalCBVisible] = useState(false);
   const route = useRoute();
 
-  const organizer = route.params?.organizer  
   const activityId = route.params?.activity
 
   // Grabbed from emailregex.com
@@ -134,11 +133,12 @@ export default function ActivityAdminScreen({ navigation }) {
         fetch(`${BACKEND_IP}/transactions/${activityId}`)
           .then((response) => response.json())
           .then((data) => {
-            const initialValue = 0;
-            const totalAmount = data.reduce(
-              (accumulator, currentValue) => accumulator + currentValue.amount,
-              initialValue)
+            if (data.result) {
+              const initialValue = 0;
+              const totalAmount = data.reduce(
+                  (accumulator, currentValue) => accumulator + currentValue.amount, initialValue)                     
               setTotalPayement(totalAmount);
+            }
           })
       });
   }, [activityId]);
@@ -223,12 +223,12 @@ export default function ActivityAdminScreen({ navigation }) {
   };
 
   
-  const deleteParticipant = (participantId) => {
+  const deleteParticipant = (participationId) => {
     if(participantsArr.length === 1){
       Alert.alert('Impossible de supprimer le dernier participant')
       return;
     }
-    fetch(`${BACKEND_IP}/activities/participants/${participantId}`, {
+    fetch(`${BACKEND_IP}/activities/participants/${participationId}`, {
       method: "DELETE",
       headers: { "Content-type": "application/json" },
     })
@@ -247,14 +247,16 @@ export default function ActivityAdminScreen({ navigation }) {
       });
   };
 
-  let avatarPart;
+  let avatarPart = null; // rendu si participantsArr est indéfini ou non un tableau
 
 if (participantsArr && Array.isArray(participantsArr)) {
   avatarPart = participantsArr.map((data, i) => {
-    const participantId = data.user._id;
+    const participationId = data._id;
+    const participantSatus = data.status === 'Accepted';
     return (
       <TouchableOpacity
         key={i}
+        style={[styles.participStatus, participantSatus && styles.participAccepted]}
         onPress={() =>
           Alert.alert(
             "Remove invitation",
@@ -268,7 +270,7 @@ if (participantsArr && Array.isArray(participantsArr)) {
               {
                 text: "Yes",
                 onPress: () => {
-                  deleteParticipant(participantId);
+                  deleteParticipant(participationId);
                   console.log("Suppression validée");
                 },
               },
@@ -281,10 +283,7 @@ if (participantsArr && Array.isArray(participantsArr)) {
       </TouchableOpacity>
     );
   });
-} else {
-  avatarPart = null; // rendu si participantsArr est indéfini ou non un tableau
 }
-
 
   return (
     //implementation du component header
@@ -602,5 +601,14 @@ const styles = StyleSheet.create({
     alignSelf:'flex-start',
     marginBottom: -20,
     marginLeft: '10%',
-  }
+  },
+  participStatus:{
+    marginHorizontal: 2,
+    borderRadius :50,
+    borderColor : '#496F5D',
+    borderWidth:3,
+  },
+  participAccepted:{
+    borderColor : '#1F84D6',
+  },
 });

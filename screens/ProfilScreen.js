@@ -28,21 +28,14 @@ export default function ProfilScreen({ navigation }) {
       <KeyboardAvoidingView style={styles.keyboardView} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>          
         <ScrollView contentContainerStyle={styles.scroll} >
           <View style={styles.content}>
-            <View>
-            <TouchableOpacity>
             <RedButton 
               buttonText='Informations'
-              onPress={() => navigation.navigate("Profile Infos")} />
-          </TouchableOpacity>
-        </View>
-        <View>
-          <TouchableOpacity>
+              onPress={() => navigation.navigate("Profile Infos")}
+            />
             <RedButton
               buttonText='Paiements Informations'
               onPress={() => navigation.navigate("Profile Paiements")}
             />
-          </TouchableOpacity>
-        </View>
         </View>
         </ScrollView>
       </KeyboardAvoidingView>

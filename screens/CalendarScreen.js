@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { View, Text, StyleSheet, SafeAreaView} from 'react-native';
-import { Agenda } from 'react-native-calendars';
+import { Agenda, calendarTheme } from 'react-native-calendars';
 import { BACKEND_IP } from "@env";
 import Header from '../components/Header';
 import moment from 'moment';
-import { calendarTheme } from 'react-native-calendars'; 
 
 
 // changement visuel du calendrier 
@@ -24,7 +23,8 @@ const CalendarScreen = ({ navigation }) => {
   const reduxActivities = useSelector((state) => state.activities.value);
   const [selectedDate, setSelectedDate] = useState(moment().format('YYYY-MM-DD'));
   const [allActivities, setAllActivities] = useState({});
-  const [dayActivities, setDayActivities] = useState({});
+  const [dayActivities, setDayActivities] = useState({});  
+  const [dateActivity, setDateActivities] = useState({});
 
   useEffect(() => {
     // prend les infos dans le redux, les tri et les formate au format utilisé pour l'agenda 
@@ -42,6 +42,12 @@ const CalendarScreen = ({ navigation }) => {
         activityID: data._id,
         organizer: data.organizer.token,
       });
+      // Create Date list Activity for marked in calandar
+      !dateActivity.hasOwnProperty(date) && (dateActivity[date]= {
+        marked: true,
+        selectedColor: '#F74231',
+        dotColor: '#496F5D',
+      })
     });
     
     //fait en sorte de que tout les activité soit contenu en fonction de leurs date dans la date qui correspond
@@ -70,7 +76,7 @@ const CalendarScreen = ({ navigation }) => {
   const renderItem = (item) => {    return (
       <View>
         <View style={styles.item}>
-         <Text onPress={() => handlePress(item)} style={styles.itemName}>{item.name}</Text>
+          <Text onPress={() => handlePress(item)} style={styles.itemName}>{item.name}</Text>
           <Text onPress={() => handlePress(item)} style={styles.itemTime}>{item.time}</Text>
           <Text onPress={() => handlePress(item)} style={styles.itemLocation}>{item.location}</Text>
         </View>
@@ -82,7 +88,7 @@ const CalendarScreen = ({ navigation }) => {
     <SafeAreaView style={styles.safeArea}>
       <Header
         navigation={navigation}
-        title={`Welcome ${user.username}`}
+        title={`Your schedule`}
         avatar={user.avatar}
       />
       <View style={styles.container}>
@@ -96,14 +102,9 @@ const CalendarScreen = ({ navigation }) => {
           markedDates={{
             [selectedDate]: {
               selected: true,
-              marked: true,
               selectedColor: '#F74231',
             },
-            '2024-08-20': { //feature de test
-        marked: true,
-        selectedColor: '#F74231',
-        dotColor: '#F74231', 
-      },
+            ...dateActivity, // Spread operator used to decompose each property
           }}
         />
       </View>

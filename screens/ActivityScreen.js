@@ -59,28 +59,66 @@ export default function ActivityScreen({ navigation }) {
         fetch(`${BACKEND_IP}/transactions/${activityId}`)
           .then((response) => response.json())
           .then((data) => {
-            const initialValue = 0;
-            const totalAmount = data.reduce(
-              (accumulator, currentValue) => accumulator + currentValue.amount,
-              initialValue)
+            if (data.result) {
+              const initialValue = 0;
+              const totalAmount = data.reduce(
+                  (accumulator, currentValue) => accumulator + currentValue.amount,initialValue)                     
               setTotalPayement(totalAmount);
+            }
           })
       });
   }, [activityId]);
 
-  let avatarPart;
+  let avatarPart = null; // rendu si participantsArr est indéfini ou non un tableau
   if (participantsArr && Array.isArray(participantsArr)) {
     avatarPart = participantsArr.map((data, i) => {
-      const participantId = data.user._id;
+      const participantSatus = data.status === 'Accepted';
       return (
-        <TouchableOpacity key={i} >
+        <TouchableOpacity key={i} style={[styles.participStatus, participantSatus && styles.participAccepted]}>
           <Image source={avatar(data.user.avatar)} style={styles.avatar} />
         </TouchableOpacity>
       );
     });
-  } else {
-    avatarPart = null; // rendu si participantsArr est indéfini ou non un tableau
   }
+
+  const refuseParticipation = () => {
+    const participationId = participantsArr.find(e =>e.user.email === users.email)._id;
+    fetch(`${BACKEND_IP}/activities/participants/${participationId}`, {
+      method: "DELETE",
+      headers: { "Content-type": "application/json" },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data)
+          navigation.navigate("Home");
+        else
+          alert("Error during process!");
+      });
+  };
+
+  const acceptParticipation = () => {
+    const participationId = participantsArr.find(e =>e.user.email === users.email)._id;
+    fetch(`${BACKEND_IP}/activities/participants/${participationId}`, {
+      method: "PUT",
+      headers: { "Content-type": "application/json" },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data){
+          const index = participantsArr.findIndex(e =>e.user.email === users.email)
+          setParticipantsArr(prevState => 
+            prevState.map((participant, i) => 
+                i === index ? {...participant, status: "Accepted"} : participant
+            )
+          );
+        }
+        else
+          alert("Error during process!");
+      });
+  };
+
+  const participant = participantsArr.find(e => e.user.email === users.email);
+  const userStatus = participant ? participant.status === "Accepted" : false;
 
   return (
     //implementation du component header
@@ -106,8 +144,8 @@ export default function ActivityScreen({ navigation }) {
           {organizerToken !== userToken && (
           <View style={styles.invitation}>
             <View style={styles.choice}>
-              <RedButton buttonText='Accept'></RedButton>
-              <RedButton buttonText='Refuse'></RedButton>
+              <RedButton buttonText='Accept'onPress={acceptParticipation} disabled={userStatus}></RedButton>
+              <RedButton buttonText='Refuse'onPress={refuseParticipation}></RedButton>
             </View>
           </View>
         )}
@@ -219,5 +257,14 @@ const styles = StyleSheet.create({
   participantsTitle:{
     alignSelf:'flex-start',
     marginLeft: '10%',
-  }
+  },
+  participStatus:{
+    marginHorizontal: 2,
+    borderRadius :50,
+    borderColor : '#496F5D',
+    borderWidth:3,
+  },
+  participAccepted:{
+    borderColor : '#1F84D6',
+  },
 });

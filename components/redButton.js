@@ -4,7 +4,11 @@ import { StyleSheet, Text, TouchableOpacity} from 'react-native';
 function RedButton(props){
 
     return(
-        <TouchableOpacity style={[styles.redButton, props.style]} onPress={props.onPress}>
+        <TouchableOpacity
+            style={[styles.redButton, props.disabled && styles.buttonDisabled, props.style]}
+            onPress={props.onPress}
+            disabled={props.disabled}
+        >
             <Text style={styles.redButtonText} >
                 {props.buttonText}
             </Text>
@@ -25,6 +29,9 @@ const styles = StyleSheet.create({
         fontSize: 24,
         fontWeight: '800',
         color: 'white',
+    },
+    buttonDisabled: {
+        backgroundColor: 'rgba(247, 66, 49, 0.2)',  // Update color if button is disabled
     },
 })
 
